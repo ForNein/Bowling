@@ -15,9 +15,13 @@ function calculateScore(series) {
 }
 
 function handleStrike(array, index) {
-	var score = 10, next = index+1, nextNext = index+2;
-	
-	return score;
+	var next = index + 1, nextNext = index + 2;
+	if(array[nextNext] == '/') {
+		return 20;
+	} else if (array[next] != undefined && array[nextNext] != undefined){
+		return 10 + rollValue(array[next]) + rollValue(array[nextNext]);
+	}
+	return 0;
 }
 
 function handleSpare(array, index) {
