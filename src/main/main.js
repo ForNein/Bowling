@@ -9,14 +9,34 @@ function rollValue(value) {
 }
 
 function calculateScore(series) {
-	var score = 0;
+	var score = 0, temp;
 	var shotArray = series.toString().split('');
+
+	for (i = 0; i < shotArray.length - 1; i++) {
+		if (shotArray[i] == 'X') {
+			temp = handleStrike(shotArray, i);
+			if (temp) {
+				score += temp;
+			} else {
+				break;
+			}
+		} else if (shotArray[i] == '/'){
+			temp = handleSpare(shotArray, i);
+			if (temp) {
+				score += temp;
+			} else {
+				break;
+			}
+		} else {
+			score += rollValue(shotArray[i]);
+		}
+	}
 	return score;
 }
 
 function handleStrike(array, index) {
 	var next = index + 1, nextNext = index + 2;
-	if(array[nextNext] == '/') {
+	if (array[nextNext] == '/') {
 		return 20;
 	} else if (array[next] != undefined && array[nextNext] != undefined){
 		return 10 + rollValue(array[next]) + rollValue(array[nextNext]);
@@ -26,7 +46,7 @@ function handleStrike(array, index) {
 
 function handleSpare(array, index) {
 	var previous = index - 1, next = index + 1;
-	if(array[next] != undefined) {
+	if (array[next] != undefined) {
 		return 10 + rollValue(array[next]) - rollValue(array[previous]);
 	} 
 	return 0;
