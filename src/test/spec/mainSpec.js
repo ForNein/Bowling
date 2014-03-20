@@ -31,6 +31,9 @@ describe("Bowling Score Calculator", function() {
 	});
 
 	it("handle spare test", function() {
+		expect(handleSpare(['X','X','X','X','X','X','X','X','X','5','/','X'], 10)).toEqual(15);
+		expect(handleSpare(['X','X','X','X','X','X','X','X','X','3','/','6'], 10)).toEqual(13);
+		expect(handleSpare(['X','X','X','X','X','X','X','X','X','X','4','/'], 11)).toEqual(0);
 		expect(handleSpare(['8','/','X'], 1)).toEqual(12);
 		expect(handleSpare(['5','/','X'], 1)).toEqual(15);
 		expect(handleSpare(['2','/','X'], 1)).toEqual(18);

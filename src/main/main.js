@@ -25,6 +25,9 @@ function handleStrike(array, index) {
 }
 
 function handleSpare(array, index) {
-	var score;
-	return score;
+	var previous = index - 1, next = index + 1;
+	if(array[next] != undefined) {
+		return 10 + rollValue(array[next]) - rollValue(array[previous]);
+	} 
+	return 0;
 }
