@@ -12,17 +12,19 @@ describe("Bowling Score Calculator", function() {
 
 	it("full game test", function() {
 		expect(calculateScore('XXXXXXXXXXXX')).toEqual(300);
+		expect(calculateScore('XXXXXXXXXXX9')).toEqual(299);
+		expect(calculateScore('XXXXXXXXXX81')).toEqual(287);
+		expect(calculateScore('XXXXXXXXXX7-')).toEqual(284);
+		expect(calculateScore('XXXXXXXXX8/X')).toEqual(278);
+		expect(calculateScore('XXXXXXXXX5/7')).toEqual(272);
+		expect(calculateScore('XXXXXXXXXX--')).toEqual(270);
+		expect(calculateScore('XXXXXXXXX3/-')).toEqual(263);
 		expect(calculateScore('9-9-9-9-9-9-9-9-9-9-')).toEqual(90);
 		expect(calculateScore('5/5/5/5/5/5/5/5/5/5/5')).toEqual(150);
 	});
 
 	it("handle strike test", function() {
-		expect(handleStrike(['X','X','X','X','X','X','X','X','X','X','X','X'], 0)).toEqual(30);
-		expect(handleStrike(['X','X','X','X','X','X','X','X','X','X','X','X'], 3)).toEqual(30);
-		expect(handleStrike(['X','X','X','X','X','X','X','X','X','X','X','X'], 6)).toEqual(30);
-		expect(handleStrike(['X','X','X','X','X','X','X','X','X','X','X','X'], 9)).toEqual(30);
-		expect(handleStrike(['X','X','X','X','X','X','X','X','X','X','X','X'], 10)).toEqual(0);
-		expect(handleStrike(['X','X','X','X','X','X','X','X','X','X','X','X'], 11)).toEqual(0);
+		expect(handleStrike(['X','X','X'], 0)).toEqual(30);
 		expect(handleStrike(['X','8','/'], 0)).toEqual(20);
 		expect(handleStrike(['X','8','1'], 0)).toEqual(19);
 		expect(handleStrike(['X','7','-'], 0)).toEqual(17);
@@ -31,9 +33,6 @@ describe("Bowling Score Calculator", function() {
 	});
 
 	it("handle spare test", function() {
-		expect(handleSpare(['X','X','X','X','X','X','X','X','X','5','/','X'], 10)).toEqual(15);
-		expect(handleSpare(['X','X','X','X','X','X','X','X','X','3','/','6'], 10)).toEqual(13);
-		expect(handleSpare(['X','X','X','X','X','X','X','X','X','X','4','/'], 11)).toEqual(0);
 		expect(handleSpare(['8','/','X'], 1)).toEqual(12);
 		expect(handleSpare(['5','/','X'], 1)).toEqual(15);
 		expect(handleSpare(['2','/','X'], 1)).toEqual(18);

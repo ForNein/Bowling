@@ -9,24 +9,15 @@ function rollValue(value) {
 }
 
 function calculateScore(series) {
-	var score = 0, temp;
+	var score = 0;
 	var shotArray = series.toString().split('');
-
 	for (i = 0; i < shotArray.length - 1; i++) {
 		if (shotArray[i] == 'X') {
-			temp = handleStrike(shotArray, i);
-			if (temp) {
-				score += temp;
-			} else {
-				break;
-			}
+			score += handleStrike(shotArray, i);
+			if (shotArray[i+3] == undefined) { break; } 		
 		} else if (shotArray[i] == '/'){
-			temp = handleSpare(shotArray, i);
-			if (temp) {
-				score += temp;
-			} else {
-				break;
-			}
+			score += handleSpare(shotArray, i);
+			if (shotArray[i+2] == undefined) { break; }
 		} else {
 			score += rollValue(shotArray[i]);
 		}
@@ -35,19 +26,14 @@ function calculateScore(series) {
 }
 
 function handleStrike(array, index) {
-	var next = index + 1, nextNext = index + 2;
+	var next = index+1, nextNext = index+2;
 	if (array[nextNext] == '/') {
 		return 20;
-	} else if (array[next] != undefined && array[nextNext] != undefined){
-		return 10 + rollValue(array[next]) + rollValue(array[nextNext]);
 	}
-	return 0;
+	return 10 + rollValue(array[next]) + rollValue(array[nextNext]);
 }
 
 function handleSpare(array, index) {
-	var previous = index - 1, next = index + 1;
-	if (array[next] != undefined) {
-		return 10 + rollValue(array[next]) - rollValue(array[previous]);
-	} 
-	return 0;
+	var previous = index-1, next = index+1;
+	return 10 + rollValue(array[next]) - rollValue(array[previous]);
 }
